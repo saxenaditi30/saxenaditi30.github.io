@@ -231,7 +231,7 @@
   setInterval(tick,250);
   let wished=false;
   window.makeWish=function(ev){ev.stopPropagation();const cake=document.getElementById('cake'),h=document.getElementById('wishHint');
-    if(!wished){cake.classList.add('out');wished=true;h.textContent='wish made — happy birthday! ✨';
+    if(!wished){cake.classList.add('out');wished=true;h.textContent='wish made "Happy Birthday Bebu! ✨"';
       const r=cake.getBoundingClientRect();if(!reduce)burst(r.left+r.width/2,r.top+10,70);}
     else{cake.classList.remove('out');wished=false;h.textContent='tap the candle & make a wish ✨';}};
   recompute();tick();
