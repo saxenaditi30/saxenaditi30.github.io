@@ -161,20 +161,32 @@ h2{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:clamp(
 .contact-links{display:flex;flex-wrap:wrap;justify-content:center;gap:11px;margin-top:24px;}
 footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;font-family:"JetBrains Mono",monospace;font-size:11.5px;color:var(--faint);}
 
-/* GALLERY */
+/* GALLERY CAROUSEL */
 .gallery-tabs{display:flex;gap:8px;margin-bottom:28px;flex-wrap:wrap;}
 .gtab{font-family:"JetBrains Mono",monospace;font-size:12.5px;padding:9px 18px;border-radius:8px;border:1px solid var(--line-2);background:none;color:var(--muted);cursor:pointer;transition:all .2s;letter-spacing:.02em;}
 .gtab.active,.gtab:hover{background:rgba(52,214,173,.08);color:var(--accent);border-color:rgba(52,214,173,.3);}
 .gallery-panel{display:none;}
 .gallery-panel.active{display:block;}
-.img-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;}
-.img-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;overflow:hidden;transition:border-color .2s;}
-.img-card:hover{border-color:var(--line-2);}
-.img-card img{width:100%;display:block;background:#1a1f1e;object-fit:contain;}
-.img-card.full{grid-column:1/-1;}
-.img-cap{padding:14px 16px;}
-.img-label{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:6px;}
-.img-text{font-size:.91rem;color:var(--muted);line-height:1.55;}
+.car-wrap{border:1px solid var(--line);border-radius:14px;overflow:hidden;background:var(--surface);}
+.car-track-outer{overflow:hidden;}
+.car-track{display:flex;transition:transform .4s cubic-bezier(.25,.8,.25,1);}
+.car-slide{min-width:100%;display:grid;grid-template-columns:1fr 1fr;gap:0;}
+@media(max-width:640px){.car-slide{grid-template-columns:1fr;}}
+.car-img-wrap{background:var(--surface-2);display:flex;align-items:center;justify-content:center;padding:24px;min-height:260px;border-right:1px solid var(--line);}
+@media(max-width:640px){.car-img-wrap{border-right:none;border-bottom:1px solid var(--line);min-height:200px;}}
+.car-img-wrap img{max-width:100%;max-height:240px;object-fit:contain;border-radius:4px;}
+.car-info{padding:28px 26px;display:flex;flex-direction:column;justify-content:center;}
+.car-tag-pill{font-family:"JetBrains Mono",monospace;font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--accent-dim);margin-bottom:10px;}
+.car-title{font-family:"Bricolage Grotesque",sans-serif;font-weight:600;font-size:1.15rem;color:var(--text);line-height:1.2;margin-bottom:12px;}
+.car-desc{font-size:.95rem;color:var(--muted);line-height:1.6;}
+.car-nav{display:flex;align-items:center;justify-content:space-between;padding:14px 20px;border-top:1px solid var(--line);background:var(--surface);}
+.car-btn{font-family:"JetBrains Mono",monospace;font-size:12.5px;padding:8px 16px;border-radius:8px;border:1px solid var(--line-2);background:none;color:var(--muted);cursor:pointer;transition:all .2s;}
+.car-btn:hover:not(:disabled){border-color:var(--accent);color:var(--accent);}
+.car-btn:disabled{opacity:.3;cursor:not-allowed;}
+.car-counter{font-family:"JetBrains Mono",monospace;font-size:12px;color:var(--faint);}
+.car-dots{display:flex;gap:6px;align-items:center;}
+.car-dot{width:6px;height:6px;border-radius:50%;background:var(--line-2);cursor:pointer;transition:all .2s;border:none;padding:0;}
+.car-dot.active{background:var(--accent);transform:scale(1.3);}
 
 
 </style>
@@ -432,109 +444,146 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;font-fa
 
       <!-- NANOINDENTATION -->
       <div class="gallery-panel active" id="tab-indent">
-        <div class="img-grid">
-          <div class="img-card">
-            <img src="LoadDepthPlot_corrected_um.png" alt="Force–depth curves from three repeat indentations">
-            <div class="img-cap">
-              <div class="img-label">Nanoindentation · CCN · Force–Depth Curves</div>
-              <p class="img-text">Force–penetration depth curves from three repeat indentations on the CCN sample. All curves are highly consistent and show pronounced curvature on unloading, indicative of viscoelastic response. No displacement discontinuities are observed, confirming the absence of crack initiation or propagation under this loading regime.</p>
+        <div class="car-wrap">
+          <div class="car-track-outer"><div class="car-track" id="car-indent">
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="LoadDepthPlot_corrected_um.png" alt="Force-depth curves"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Nanoindentation &middot; CCN &middot; Force&ndash;Depth Curves</div>
+                <div class="car-title">Three repeat indentations on the CCN sample</div>
+                <p class="car-desc">All curves are highly consistent and show pronounced curvature on unloading, indicative of viscoelastic response. No displacement discontinuities are observed, confirming the absence of crack initiation or propagation under this loading regime.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="Indent.png" alt="SEM image of Berkovich indent on CCN sample">
-            <div class="img-cap">
-              <div class="img-label">Nanoindentation · CCN · SEM Imprint</div>
-              <p class="img-text">SEM image of a Berkovich indent on the CCN catalyst layer. No corner cracks are visible at the three edges of the imprint where tensile stresses are maximal. The characteristic three-sided densification pattern reflects the Berkovich tip geometry, consistent with a response dominated by porous microstructure densification.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="Indent.png" alt="SEM Berkovich indent"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Nanoindentation &middot; CCN &middot; SEM Imprint</div>
+                <div class="car-title">Berkovich imprint — no corner cracks</div>
+                <p class="car-desc">SEM image of a Berkovich indent on the CCN catalyst layer. No corner cracks are visible at the three edges of the imprint where tensile stresses are maximal. The characteristic three-sided densification pattern reflects the Berkovich tip geometry.</p>
+              </div>
             </div>
+          </div></div>
+          <div class="car-nav">
+            <button class="car-btn" onclick="prevSlide('indent')" id="prev-indent" disabled>← Prev</button>
+            <div class="car-dots" id="dots-indent"></div>
+            <span class="car-counter" id="count-indent">1 / 2</span>
+            <button class="car-btn" onclick="nextSlide('indent')" id="next-indent">Next →</button>
           </div>
         </div>
       </div>
 
       <!-- MICROSCRATCH -->
       <div class="gallery-panel" id="tab-scratch">
-        <div class="img-grid">
-          <div class="img-card">
-            <img src="2_5Nsp2len0_5.png" alt="Confocal microscopy of scratch track at 2.5 N">
-            <div class="img-cap">
-              <div class="img-label">Microscratch · CCN · Confocal Image · 2.5 N</div>
-              <p class="img-text">Confocal microscopy brightness image of a scratch track on the CCN sample at a constant normal force of 2.5 N (scratch length 0.5 mm, speed 2 mm/min). Characteristic deformation features include crack formation and coating delamination, with a distinct region of material lift-off at the scratch terminus.</p>
+        <div class="car-wrap">
+          <div class="car-track-outer"><div class="car-track" id="car-scratch">
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="2_5Nsp2len0_5.png" alt="Scratch track confocal 2.5N"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Microscratch &middot; CCN &middot; Confocal &middot; 2.5 N</div>
+                <div class="car-title">Scratch track at constant 2.5 N load</div>
+                <p class="car-desc">Confocal microscopy brightness image showing characteristic deformation features including crack formation and coating delamination. A distinct region of material lift-off is visible at the scratch terminus where delamination is most pronounced.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="Plot2_5N_sp2len0_5_1_.png" alt="Mechanical signals during 2.5 N scratch">
-            <div class="img-cap">
-              <div class="img-label">Microscratch · CCN · Mechanical Signals · 2.5 N</div>
-              <p class="img-text">Friction coefficient and penetration depth as functions of scratch length at 2.5 N. The friction coefficient initially rises as contact stabilizes, then fluctuates during delamination before decreasing. Penetration depth first increases, then decreases due to material pile-up, with further variations as delamination progresses.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="Plot2_5N_sp2len0_5_1_.png" alt="Mechanical signals 2.5N scratch"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Microscratch &middot; CCN &middot; Mechanical Signals &middot; 2.5 N</div>
+                <div class="car-title">Friction coefficient and depth vs. scratch length</div>
+                <p class="car-desc">The friction coefficient initially rises as contact stabilizes, then fluctuates during delamination before decreasing. Penetration depth first increases, then decreases due to material pile-up, with further variations as delamination progresses.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card full">
-            <img src="1_3Nsp4_len2.png" alt="Stitched 3D laser microscopy of CCN scratch track">
-            <div class="img-cap">
-              <div class="img-label">Microscratch · CCN · Stitched 3D Laser Microscopy · Progressive Load</div>
-              <p class="img-text">Stitched 3D laser microscopy image of a progressively loaded scratch on the CCN sample (11 individual scans, Olympus LEXT OLS4000). Progressive widening of the wear track with increasing applied force reflects deeper tip penetration. At the right end, corresponding to maximum force, delamination of the CCN electrode from the membrane produces a distinct region of material lift-off — exemplifying the damage morphology used to determine the critical delamination force.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="1_3Nsp4_len2.png" alt="Stitched 3D laser microscopy CCN scratch"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Microscratch &middot; CCN &middot; 3D Laser Microscopy &middot; Progressive Load</div>
+                <div class="car-title">Stitched 3D laser microscopy — 11 scans</div>
+                <p class="car-desc">Progressive widening of the wear track with increasing applied force reflects deeper tip penetration. At the right end (maximum force), delamination of the CCN electrode from the membrane produces a distinct region of material lift-off — exemplifying the damage morphology used to determine the critical delamination force.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="Plot1_3N_sp4_len2.png" alt="Depth, tangential force and friction coefficient under progressive load">
-            <div class="img-cap">
-              <div class="img-label">Microscratch · CCN · Progressive Load Signals</div>
-              <p class="img-text">Penetration depth (black), tangential force (orange), and friction coefficient (purple) as functions of scratch length under progressively increasing normal load. A pronounced coincident peak in tangential force and friction coefficient at ~1.05 N, accompanied by an anomaly in the depth signal, marks the onset of interfacial delamination.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="Plot1_3N_sp4_len2.png" alt="Progressive load scratch signals"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Microscratch &middot; CCN &middot; Progressive Load Signals</div>
+                <div class="car-title">Delamination onset at ~1.05 N</div>
+                <p class="car-desc">Penetration depth (black), tangential force (orange), and friction coefficient (purple) as functions of scratch length. A pronounced coincident peak in tangential force and friction coefficient, accompanied by a depth anomaly, marks the onset of interfacial delamination.</p>
+              </div>
             </div>
+          </div></div>
+          <div class="car-nav">
+            <button class="car-btn" onclick="prevSlide('scratch')" id="prev-scratch" disabled>← Prev</button>
+            <div class="car-dots" id="dots-scratch"></div>
+            <span class="car-counter" id="count-scratch">1 / 4</span>
+            <button class="car-btn" onclick="nextSlide('scratch')" id="next-scratch">Next →</button>
           </div>
         </div>
       </div>
 
       <!-- PUNCTURE TEST -->
       <div class="gallery-panel" id="tab-puncture">
-        <div class="img-grid">
-          <div class="img-card">
-            <img src="Scheme.png" alt="Schematic of the electro-mechanical puncture setup">
-            <div class="img-cap">
-              <div class="img-label">Puncture Test · Experimental Setup · Schematic</div>
-              <p class="img-text">Schematic of the electro-mechanical puncture setup. The needle descends into a bath of deionised water with the membrane resting on a metal sheet; a voltage source applies a through-plane potential while an ammeter and voltmeter monitor electrical breakthrough in situ.</p>
+        <div class="car-wrap">
+          <div class="car-track-outer"><div class="car-track" id="car-puncture">
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="Scheme.png" alt="Electro-mechanical puncture setup schematic"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Puncture Test &middot; Experimental Setup</div>
+                <div class="car-title">Electro-mechanical puncture setup</div>
+                <p class="car-desc">The needle descends into a bath of deionised water with the membrane resting on a metal sheet. A voltage source applies a through-plane potential while an ammeter and voltmeter monitor electrical breakthrough in situ — simultaneously with force and displacement.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="Test2withMembrane_15V_005_PastaExport.png" alt="Representative signals at 15 V showing delayed breakthrough">
-            <div class="img-cap">
-              <div class="img-label">Puncture Test · 15 V · Delayed Breakthrough</div>
-              <p class="img-text">Representative signals at 15 V showing delayed electrical breakthrough. Force and displacement rise during loading while the electrical contact signal remains near baseline until ~48 s, then steps sharply to a sustained high value — marking pin-hole initiation at a well-defined critical load.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="Test2withMembrane_15V_005_PastaExport.png" alt="15V delayed breakthrough signals"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Puncture Test &middot; 15 V &middot; Delayed Breakthrough</div>
+                <div class="car-title">Delayed electrical breakthrough at 15 V</div>
+                <p class="car-desc">Force and displacement rise during loading while the electrical contact signal remains near baseline until ~48 s, then steps sharply to a sustained high value — marking pin-hole initiation at a well-defined critical load.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="Test2withMembrane_15V_002_PastaExport_B.png" alt="Second 15 V test showing early-onset breakthrough">
-            <div class="img-cap">
-              <div class="img-label">Puncture Test · 15 V · Early-Onset Breakthrough</div>
-              <p class="img-text">A second independent 15 V test showing early-onset breakthrough. The electrical contact signal reaches its maximum within the first 1–2 s of loading, before measurable force develops. Contrast with the previous figure illustrates the substantial stochastic variability at this voltage, likely driven by pre-existing defects.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="Test2withMembrane_15V_002_PastaExport_B.png" alt="15V early-onset breakthrough"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Puncture Test &middot; 15 V &middot; Early-Onset Breakthrough</div>
+                <div class="car-title">Stochastic variability — same voltage, different outcome</div>
+                <p class="car-desc">The electrical contact signal reaches its maximum within the first 1–2 s of loading, before measurable force develops. Contrast with the previous slide illustrates the substantial variability at this voltage, likely driven by pre-existing defects and local heterogeneity.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="Test2_20V_002.png" alt="Confocal micrograph of pin-hole at 20 V">
-            <div class="img-cap">
-              <div class="img-label">Puncture Test · 20 V · Pin-hole Morphology · Confocal</div>
-              <p class="img-text">Confocal laser scanning micrograph of a representative pin-hole formed at 20 V in the Half-CCM (frontside configuration). A localized through-thickness penetration is visible with an irregular surrounding deformation zone. Pin-hole diameters are on the order of several tens of micrometres.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="Test2_20V_002.png" alt="Pin-hole at 20V confocal"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Puncture Test &middot; 20 V &middot; Pin-hole Morphology</div>
+                <div class="car-title">Pin-hole formed at 20 V — confocal micrograph</div>
+                <p class="car-desc">A localized through-thickness penetration is visible with an irregular surrounding deformation zone. Pin-hole diameters are on the order of several tens of micrometres. Additional microcracks near the main puncture suggest pre-existing flaws contribute to initiation.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="HalfCCM_relative_1_.png" alt="Breakthrough stress vs electric field strength">
-            <div class="img-cap">
-              <div class="img-label">Puncture Test · Half-CCM · Breakthrough Stress vs. Electric Field</div>
-              <p class="img-text">Breakthrough stress as a function of electric field strength for the front- and backsides of the Nafion 117 Half-CCM. Breakthrough stress decreases monotonically with increasing field, with upward arrows denoting run-out tests. The partial overlap between front- and backside results indicates that electric field is the primary governing factor; local morphology and defect populations contribute mainly to scatter.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="HalfCCM_relative_1_.png" alt="Breakthrough stress vs electric field"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Puncture Test &middot; Half-CCM &middot; Breakthrough Stress</div>
+                <div class="car-title">Electric field governs breakthrough stress</div>
+                <p class="car-desc">Breakthrough stress decreases monotonically with increasing electric field strength for both front- and backsides of the Nafion 117 Half-CCM. Upward arrows denote run-out tests. The partial overlap between sides indicates that electric field is the primary governing factor.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card">
-            <img src="comparePlot.png" alt="Voltage dependence of pin-hole depth extrema">
-            <div class="img-cap">
-              <div class="img-label">Puncture Test · Half-CCM · Depth Extrema vs. Voltage</div>
-              <p class="img-text">Voltage dependence of pin-hole depth extrema (minimum and maximum) extracted from confocal line profiles. The non-monotonic trend at intermediate voltages is consistent with a transition between mechanically dominated and electrically driven failure regimes.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="comparePlot.png" alt="Depth extrema vs voltage"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Puncture Test &middot; Half-CCM &middot; Depth vs. Voltage</div>
+                <div class="car-title">Voltage dependence of pin-hole depth extrema</div>
+                <p class="car-desc">Minimum and maximum depths extracted from confocal line profiles. The non-monotonic trend at intermediate voltages is consistent with a transition between mechanically dominated and electrically driven failure regimes.</p>
+              </div>
             </div>
-          </div>
-          <div class="img-card full">
-            <img src="compare_1_.png" alt="Confocal line profiles colored by voltage">
-            <div class="img-cap">
-              <div class="img-label">Puncture Test · Half-CCM · Confocal Profiles · All Voltages</div>
-              <p class="img-text">Confocal line profiles of pin-hole sites across all tested voltages, color-coded by voltage (5–20 V). At low voltages, shallow deformation with broad surrounding zones reflects mechanical dominance. At high voltages, deeper and more localized penetrations indicate electric field-driven failure. Intermediate voltages show extruded material at the pin-hole center, marking a transition between the two regimes.</p>
+            <div class="car-slide">
+              <div class="car-img-wrap"><img src="compare_1_.png" alt="Confocal profiles all voltages"></div>
+              <div class="car-info">
+                <div class="car-tag-pill">Puncture Test &middot; Half-CCM &middot; All Voltages</div>
+                <div class="car-title">Confocal profiles across all voltages — three regimes</div>
+                <p class="car-desc">Color-coded by voltage (5–20 V). At low voltages, shallow deformation with broad surrounding zones reflects mechanical dominance. At high voltages, deeper and more localized penetrations indicate electric field-driven failure. Intermediate voltages show extruded material at the pin-hole center, marking the transition.</p>
+              </div>
             </div>
+          </div></div>
+          <div class="car-nav">
+            <button class="car-btn" onclick="prevSlide('puncture')" id="prev-puncture" disabled>← Prev</button>
+            <div class="car-dots" id="dots-puncture"></div>
+            <span class="car-counter" id="count-puncture">1 / 7</span>
+            <button class="car-btn" onclick="nextSlide('puncture')" id="next-puncture">Next →</button>
           </div>
         </div>
       </div>
@@ -678,7 +727,39 @@ footer{border-top:1px solid var(--line);padding:28px 0;text-align:center;font-fa
     init(); draw();
   })();
 
-  // gallery tabs
+  // gallery tabs + carousel
+  const carState = {};
+  function initCar(id, total) {
+    carState[id] = 0;
+    const dots = document.getElementById('dots-'+id);
+    for (let i = 0; i < total; i++) {
+      const d = document.createElement('button');
+      d.className = 'car-dot' + (i === 0 ? ' active' : '');
+      d.setAttribute('aria-label', 'Slide '+(i+1));
+      d.onclick = () => goSlide(id, i);
+      dots.appendChild(d);
+    }
+    updateCar(id, total);
+  }
+  function goSlide(id, idx) {
+    const total = document.querySelectorAll('#car-'+id+' .car-slide').length;
+    carState[id] = Math.max(0, Math.min(idx, total - 1));
+    updateCar(id, total);
+  }
+  function nextSlide(id) { goSlide(id, carState[id] + 1); }
+  function prevSlide(id) { goSlide(id, carState[id] - 1); }
+  function updateCar(id, total) {
+    const idx = carState[id];
+    document.getElementById('car-'+id).style.transform = 'translateX(-'+idx * 100+'%)';
+    document.getElementById('count-'+id).textContent = (idx+1) + ' / ' + total;
+    document.getElementById('prev-'+id).disabled = idx === 0;
+    document.getElementById('next-'+id).disabled = idx === total - 1;
+    document.querySelectorAll('#dots-'+id+' .car-dot').forEach((d,i) => d.classList.toggle('active', i === idx));
+  }
+  initCar('indent', 2);
+  initCar('scratch', 4);
+  initCar('puncture', 7);
+
   document.querySelectorAll('.gtab').forEach(function(btn){
     btn.addEventListener('click', function(){
       document.querySelectorAll('.gtab').forEach(function(b){b.classList.remove('active');});
